@@ -1,3 +1,4 @@
+
 class Item {
   constructor(name, sellIn, quality){
     this.name = name;
@@ -6,12 +7,36 @@ class Item {
   }
 }
 
+// class Shop {
+//   constructor(items=[]) {
+//     this.items = items
+//   }
+
+//   updateQuality() {
+//     let updatedItems = []
+//     for (let i = 0; i < this.items.length; i++) {
+//       updatedItems.push(this.items[i].qualityChecker())
+//     }
+//     return updatedItems
+//   }
+// }
+
+// class Brie {
+//   constructor() {
+//     this.item = new Item("Aged Brie", 2, 0)
+//   }
+
+//   qualityChecker() {
+
+//   }
+// }
+
 class Shop {
   constructor(items=[]){
     this.items = items;
   }
   updateQuality() {
-    for (var i = 0; i < this.items.length; i++) {
+    for (let i = 0; i < this.items.length; i++) {
       if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
         if (this.items[i].quality > 0) {
           if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
@@ -56,11 +81,11 @@ class Shop {
         }
       }
     }
-
     return this.items;
   }
 }
 module.exports = {
   Item,
-  Shop
+  Shop,
+  // Brie
 }
