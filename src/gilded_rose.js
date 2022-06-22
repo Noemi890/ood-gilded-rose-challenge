@@ -1,3 +1,4 @@
+const {update, updateBrie, updateConjuredItem, updateSulfuras, updateTickets} = require('./helpingFunctions')
 
 class Item {
   constructor(name, sellIn, quality){
@@ -7,78 +8,32 @@ class Item {
   }
 }
 
-// class Shop {
-//   constructor(items=[]) {
-//     this.items = items
-//   }
-
-//   updateQuality() {
-//     let updatedItems = []
-//     for (let i = 0; i < this.items.length; i++) {
-//       updatedItems.push(this.items[i].qualityChecker())
-//     }
-//     return updatedItems
-//   }
-// }
-
-// class Brie {
-//   constructor() {
-//     this.item = new Item("Aged Brie", 2, 0)
-//   }
-
-//   qualityChecker() {
-
-//   }
-// }
-
 class Shop {
   constructor(items=[]){
     this.items = items;
   }
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-            this.items[i].quality = this.items[i].quality - 1;
-          }
-        }
-      } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-          if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-          }
-        }
+      const currentItem = this.items[i]
+
+      if (currentItem.name.includes('Conjured')) {
+        updateConjuredItem(currentItem)
+      } 
+      else if (currentItem.name.includes('Aged')) {
+        updateBrie(currentItem)
       }
-      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
+      else if (currentItem.name.includes('Vest')) {
+        update(currentItem)
       }
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != 'Aged Brie') {
-          if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }
-          } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
-          }
-        } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
-          }
-        }
+      else if (currentItem.name.includes('Elixir')) {
+        update(currentItem)
+      }
+      else if (currentItem.name.includes('Sulfuras')) {
+        updateSulfuras(currentItem)
+      }
+      else if (currentItem.name.includes('Backstage')) {
+        updateTickets(currentItem)
       }
     }
     return this.items;

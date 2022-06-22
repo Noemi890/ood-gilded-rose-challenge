@@ -73,17 +73,23 @@ describe("Gilded Rose", function() {
   })
 
   it('Sulfuras doesn\'t decreases in quality', () => {
-    const item = new Item('Sulfuras, Hand of Ragnaros', -1, 50)
+    const item = new Item('Sulfuras, Hand of Ragnaros', 0, 50)
     const gilded_rose = new Shop([item])
     const expected = [
       new Item(
         'Sulfuras, Hand of Ragnaros',
-        -1,
+        0,
         50
       )
     ]
     const result = gilded_rose.updateQuality()
     expect(result).toEqual(expected)
+  })
+
+  it('Throws an Error if Sulfuras has a sellIn date', () => {
+    const item = new Item('Sulfuras, Hand of Ragnaros', 5, 50)
+    const gilded_rose = new Shop([item])
+    expect(() => gilded_rose.updateQuality()).toThrow(new Error('Can\'t be sold'))
   })
 
   it('Backstage passes quality increase by 2 where there are less than 10 days from concert', () => {
