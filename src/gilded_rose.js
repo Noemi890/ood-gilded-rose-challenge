@@ -14,29 +14,32 @@ class Shop {
   }
 
   updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      const currentItem = this.items[i]
+    const conjuredManaCake = 'Conjured Mana Cake'
+    const agedBrie = 'Aged Brie'
+    const legendarySulfuras = 'Sulfuras, Hand of Ragnaros'
+    const tickets = 'Backstage passes to a TAFKAL80ETC concert'
 
-      if (currentItem.name.includes('Conjured')) {
-        updateConjuredItem(currentItem)
-      } 
-      else if (currentItem.name.includes('Aged')) {
-        updateBrie(currentItem)
+    this.items.forEach(element => {
+      switch(element.name) {
+        case conjuredManaCake:
+          updateConjuredItem(element)
+          break
+        case agedBrie:
+          updateBrie(element)
+          break
+        case legendarySulfuras:
+          updateSulfuras(element)
+          break
+        case tickets:
+          updateTickets(element)
+          break
+        default:
+          update(element)
+          break
       }
-      else if (currentItem.name.includes('Vest')) {
-        update(currentItem)
-      }
-      else if (currentItem.name.includes('Elixir')) {
-        update(currentItem)
-      }
-      else if (currentItem.name.includes('Sulfuras')) {
-        updateSulfuras(currentItem)
-      }
-      else if (currentItem.name.includes('Backstage')) {
-        updateTickets(currentItem)
-      }
-    }
-    return this.items;
+    })
+
+    return this.items
   }
 }
 module.exports = {
