@@ -92,6 +92,20 @@ describe("Gilded Rose", function() {
     expect(() => gilded_rose.updateQuality()).toThrow(new Error('Can\'t be sold'))
   })
 
+  it('Backstage passes quality increse by 1 where there are more than 10 days left from concert', () => {
+    const item = new Item('Backstage passes to a TAFKAL80ETC concert', 15, 30)
+    const gilded_rose = new Shop([item])
+    const expected = [
+      new Item(
+        'Backstage passes to a TAFKAL80ETC concert',
+        14,
+        31
+      )
+    ]
+    const result = gilded_rose.updateQuality()
+    expect(result).toEqual(expected)
+  })
+
   it('Backstage passes quality increase by 2 where there are less than 10 days from concert', () => {
     const item = new Item('Backstage passes to a TAFKAL80ETC concert', 8, 30)
     const gilded_rose = new Shop([item])
@@ -142,6 +156,20 @@ describe("Gilded Rose", function() {
         'Conjured Mana Cake',
         2,
         4
+      )
+    ]
+    const result = gilded_rose.updateQuality()
+    expect(result).toEqual(expected)
+  })
+
+  it('Conjured Mana Cake degrades by 4 when the date has expired', () => {
+    const item = new Item('Conjured Mana Cake', -1, 6)
+    const gilded_rose = new Shop([item])
+    const expected = [
+      new Item(
+        'Conjured Mana Cake',
+        -2,
+        2
       )
     ]
     const result = gilded_rose.updateQuality()
